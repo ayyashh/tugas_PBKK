@@ -1,0 +1,33 @@
+<h1><%= title %></h1>
+
+<a href="/posts/new" class="btn btn-primary mb-3">Create New Post</a>
+
+<% if (posts && posts.length > 0) { %>
+    <div class="row">
+        <% posts.forEach(post => { %>
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text"><%= post.content %></p>
+                    <small class="text-muted">
+                        <%= post.createdAt %>
+                    </small>
+                    <div class="mt-2">
+                        <a href="/posts/<%= post.id %>" class="btn btn-sm btn-info">View</a>
+                        <a href="/posts/<%= post.id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="/posts/<%= post.id %>/delete" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+<% } else { %>
+    <div class="alert alert-info">
+        <h4>No posts yet</h4>
+        <p>Be the first to create a post!</p>
+        <a href="/posts/new" class="btn btn-primary">Create First Post</a>
+    </div>
+<% } %>
